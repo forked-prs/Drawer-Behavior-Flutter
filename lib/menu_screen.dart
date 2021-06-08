@@ -10,7 +10,7 @@ enum Direction {
   right,
 }
 
-typedef SideDrawerItemBuilder = Function(BuildContext, MenuItem, bool);
+typedef SideDrawerItemBuilder = Function(BuildContext, MenuItem, bool, MenuController);
 
 class SideDrawer<T> extends StatefulWidget {
   SideDrawer({
@@ -253,11 +253,11 @@ class _SideDrawerState extends State<SideDrawer> with TickerProviderStateMixin {
             child: Container(
               alignment: Alignment.centerLeft,
               child: Container(
-                child: widget.itemBuilder(context, item, isSelected),
+                child: widget.itemBuilder(context, item, isSelected, menuController),
                 width: maxSlideAmount,
               ),
             ),
-            onTap: onTap,
+            // onTap: onTap,
           );
 
     if (widget.animation)
@@ -627,22 +627,30 @@ class MenuItem<T> {
   final T id;
   final String title;
   final IconData icon;
+  final List<MenuItem> subMenus;
+  final dynamic extraParam;
 
   MenuItem({
     this.id,
     this.title,
     this.icon,
+    this.subMenus= const [],
+    this.extraParam
   });
 
   MenuItem<T> copyWith({
     T id,
     String title,
     IconData icon,
+    List<MenuItem> subMenus,
+    dynamic extraParam
   }) {
     return MenuItem<T>(
       id: id ?? this.id,
       title: title ?? this.title,
       icon: icon,
+      subMenus: subMenus ?? this.subMenus,
+      extraParam: extraParam
     );
   }
 }
