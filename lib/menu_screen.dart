@@ -178,10 +178,10 @@ class _SideDrawerState extends State<SideDrawer> with TickerProviderStateMixin {
   }
 
   Widget createMenuItems(MenuController menuController) {
-    final List<Widget?> listItems = [];
+    final List<Widget> listItems = [];
 
     if (widget.child != null) {
-      listItems.add(widget.child);
+      listItems.add(widget.child!);
     } else {
       final animationIntervalDuration = 0.5;
       final perListItemDelay =
